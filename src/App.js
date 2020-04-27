@@ -1,9 +1,14 @@
 import React from 'react';
 
+import Layout from './components/Layout/Layout';
+import SandwichBuilder from './containters/SandwichBuilder/SandwichBuilder';
+
 function App() {
   return (
     <div>
-      <h1>xD</h1>
+      <Layout>
+        <SandwichBuilder />
+      </Layout>
     </div>
   );
 }
