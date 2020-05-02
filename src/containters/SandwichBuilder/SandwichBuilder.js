@@ -83,6 +83,7 @@ class SandwichBuilder extends Component {
             ingredients={this.state.ingredients}
             purchaseCancelled={this.purchaseCancel}
             purchaseContinued={this.purchaseContinue}
+            price={this.state.totalPrice}
           />
         </Modal>
         <Sandwich ingredients={this.state.ingredients} />
