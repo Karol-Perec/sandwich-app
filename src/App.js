@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Layout from './containters/Layout/Layout';
+import Layout from './hoc/Layout/Layout';
 import SandwichBuilder from './containters/SandwichBuilder/SandwichBuilder';
 
 function App() {
