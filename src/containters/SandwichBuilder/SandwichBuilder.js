@@ -83,30 +83,13 @@ class SandwichBuilder extends Component {
           encodeURIComponent(this.state.ingredients[key])
       );
     }
+    queryParams.push('price=' + this.state.totalPrice);
     const queryString = queryParams.join('&');
 
     this.props.history.push({
       pathname: '/checkout',
       search: '?' + queryString,
     });
-    // this.setState({ loading: true });
-    // const order = {
-    //   ingredients: this.state.ingredients,
-    //   price: this.state.totalPrice,
-    //   customer: {
-    //     name: 'Karol',
-    //     address: {
-    //       street: 'KEKW',
-    //       zipCode: '21-37',
-    //     },
-    //     email: 'karol.perec@gmail.com',
-    //   },
-    //   deliveryMethod: 'dummy',
-    // };
-    // axios
-    //   .post('/orders.json', order)
-    //   .then((response) => this.setState({ loading: false, purchasing: false }))
-    //   .catch((error) => this.setState({ loading: false, purchasing: false }));
   };
 
   render() {
