@@ -75,25 +75,38 @@ class SandwichBuilder extends Component {
   };
 
   purchaseContinue = () => {
-    this.setState({ loading: true });
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name: 'Karol',
-        address: {
-          street: 'KEKW',
-          zipCode: '21-37',
-        },
-        email: 'karol.perec@gmail.com',
-      },
-      deliveryMethod: 'dummy',
-    };
+    const queryParams = [];
+    for (let key in this.state.ingredients) {
+      queryParams.push(
+        encodeURIComponent(key) +
+          '=' +
+          encodeURIComponent(this.state.ingredients[key])
+      );
+    }
+    const queryString = queryParams.join('&');
 
-    axios
-      .post('/orders.json', order)
-      .then((response) => this.setState({ loading: false, purchasing: false }))
-      .catch((error) => this.setState({ loading: false, purchasing: false }));
+    this.props.history.push({
+      pathname: '/checkout',
+      search: '?' + queryString,
+    });
+    // this.setState({ loading: true });
+    // const order = {
+    //   ingredients: this.state.ingredients,
+    //   price: this.state.totalPrice,
+    //   customer: {
+    //     name: 'Karol',
+    //     address: {
+    //       street: 'KEKW',
+    //       zipCode: '21-37',
+    //     },
+    //     email: 'karol.perec@gmail.com',
+    //   },
+    //   deliveryMethod: 'dummy',
+    // };
+    // axios
+    //   .post('/orders.json', order)
+    //   .then((response) => this.setState({ loading: false, purchasing: false }))
+    //   .catch((error) => this.setState({ loading: false, purchasing: false }));
   };
 
   render() {
