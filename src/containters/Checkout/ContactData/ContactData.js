@@ -1,36 +1,31 @@
 import React, { Component } from 'react';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import Input from '../../../components/UI/Input/Input';
 import axios from '../../../axios-orders';
+import orderFormConfig from './OrderFormConfig';
 
 import classes from './ContactData.module.css';
 
 class ContactData extends Component {
   state = {
-    name: '',
-    email: '',
-    address: {
-      street: '',
-      postalCode: '',
-    },
+    orderForm: orderFormConfig,
+    isValidForm: false,
     loading: false,
   };
 
   orderHandler = (event) => {
     event.preventDefault();
     this.setState({ loading: true });
+    const formData = {};
+    for (let formElId in this.state.orderForm) {
+      formData[formElId] = this.state.orderForm[formElId].value;
+    }
+
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
-      customer: {
-        name: 'Karol',
-        address: {
-          street: 'KEKW',
-          zipCode: '21-37',
-        },
-        email: 'karol.perec@gmail.com',
-      },
-      deliveryMethod: 'dummy',
+      orderData: formData,
     };
     axios
       .post('/orders.json', order)
@@ -41,14 +36,64 @@ class ContactData extends Component {
       .catch((error) => this.setState({ loading: false }));
   };
 
+  checkValidity(value, rules) {
+    let isValid = true;
+
+    if (
+      (rules.required && value.trim() === '') ||
+      (rules.minLength && value.length < rules.minLength) ||
+      (rules.maxLength && value.length > rules.maxLength)
+    ) {
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  inputChangedHandler = (event, inputId) => {
+    const updatedOrderForm = { ...this.state.orderForm };
+    const updatedFormEl = { ...updatedOrderForm[inputId] };
+
+    updatedFormEl.value = event.target.value;
+    updatedFormEl.valid = this.checkValidity(
+      updatedFormEl.value,
+      updatedFormEl.validation
+    );
+    updatedFormEl.touched = true;
+
+    updatedOrderForm[inputId] = updatedFormEl;
+
+    let isValidForm = true;
+    for (let inputId in updatedOrderForm) {
+      isValidForm = updatedOrderForm[inputId].valid && isValidForm;
+    }
+
+    this.setState({ orderForm: updatedOrderForm, isValidForm: isValidForm });
+  };
+
   render() {
+    const formElementsArray = [];
+    for (let key in this.state.orderForm) {
+      formElementsArray.push({ id: key, config: this.state.orderForm[key] });
+    }
+
     let form = (
-      <form>
-        <input type="text" name="name" placeholder="Your name" />
-        <input type="email" name="email" placeholder="Your email" />
-        <input type="text" name="street" placeholder="Your name" />
-        <input type="text" name="postal" placeholder="Postal code" />
-        <Button buttonType="Success" clicked={this.orderHandler}>
+      <form onSubmit={this.orderHandler}>
+        {formElementsArray.map((el) => (
+          <Input
+            key={el.id}
+            elementType={el.config.elementType}
+            elementConfig={el.config.elementConfig}
+            value={el.config.value}
+            valid={el.config.valid}
+            touched={el.config.touched}
+            changed={(event) => this.inputChangedHandler(event, el.id)}
+          />
+        ))}
+        <Button
+          buttonType="Success"
+          clicked={this.orderHandler}
+          disabled={!this.state.isValidForm}>
           ORDER
         </Button>
       </form>
