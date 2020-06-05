@@ -6,7 +6,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 class Orders extends Component {
   state = {
     orders: [],
-    loading: true,
+    loading: true
   };
 
   componentDidMount() {

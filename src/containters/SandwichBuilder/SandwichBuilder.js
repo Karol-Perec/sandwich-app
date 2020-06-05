@@ -12,7 +12,7 @@ const INGREDIENT_PRICES = {
   salad: 0.5,
   cheese: 0.4,
   ham: 1.3,
-  bacon: 0.7,
+  bacon: 0.7
 };
 
 class SandwichBuilder extends Component {
@@ -22,7 +22,7 @@ class SandwichBuilder extends Component {
     purchaseable: false,
     purchasing: false,
     loading: false,
-    error: false,
+    error: false
   };
 
   componentDidMount() {
@@ -44,7 +44,7 @@ class SandwichBuilder extends Component {
 
   addIngredient = (type) => {
     const updatedIgredients = {
-      ...this.state.ingredients,
+      ...this.state.ingredients
     };
     updatedIgredients[type] = this.state.ingredients[type] + 1;
     const newPrice = this.state.totalPrice + INGREDIENT_PRICES[type];
@@ -54,7 +54,7 @@ class SandwichBuilder extends Component {
 
   removeIngredient = (type) => {
     const updatedIgredients = {
-      ...this.state.ingredients,
+      ...this.state.ingredients
     };
     const oldCount = this.state.ingredients[type];
     if (oldCount <= 0) {
@@ -88,13 +88,13 @@ class SandwichBuilder extends Component {
 
     this.props.history.push({
       pathname: '/checkout',
-      search: '?' + queryString,
+      search: '?' + queryString
     });
   };
 
   render() {
     const disabledInfo = {
-      ...this.state.ingredients,
+      ...this.state.ingredients
     };
 
     for (let key in disabledInfo) {

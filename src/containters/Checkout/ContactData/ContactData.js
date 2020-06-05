@@ -11,7 +11,7 @@ class ContactData extends Component {
   state = {
     orderForm: orderFormConfig,
     isValidForm: false,
-    loading: false,
+    loading: false
   };
 
   orderHandler = (event) => {
@@ -25,7 +25,7 @@ class ContactData extends Component {
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
-      orderData: formData,
+      orderData: formData
     };
     axios
       .post('/orders.json', order)
