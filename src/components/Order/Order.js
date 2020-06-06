@@ -3,6 +3,7 @@ import React from 'react';
 import classes from './Order.module.css';
 
 const order = (props) => {
+  console.dir(props.ingredients);
   const ingredientsInfo = Object.entries(props.ingredients).map((ig) => {
     const ingredientInfo = ig[1] ? (
       <span key={ig[0]}>
