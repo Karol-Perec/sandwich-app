@@ -3,13 +3,13 @@ import React from 'react';
 import classes from './NavigationItems.module.css';
 import NavigationItem from './NavigationItem/NavigationItem';
 
-const navigationItems = () => (
+const NavigationItems = () => (
   <ul className={classes.NavigationItems}>
-    <NavigationItem link="/" exact>
+    <NavigationItem link='/' exact>
       Sandwich Builder
     </NavigationItem>
-    <NavigationItem link="/orders">Orders</NavigationItem>
+    <NavigationItem link='/orders'>Orders</NavigationItem>
   </ul>
 );
 
-export default navigationItems;
+export default NavigationItems;

@@ -3,13 +3,23 @@ import PropTypes from 'prop-types';
 
 import classes from './Ingredient.module.css';
 
-const ingredient = (props) => {
+export const ingredientTypes = {
+  breadBottom: 'bread-bottom',
+  breadTop: 'bread-top',
+  ham: 'ham',
+  cheese: 'cheese',
+  bacon: 'bacon',
+  salad: 'salad',
+};
+
+const Ingredient = ({ type }) => {
   let ingredient = null;
-  switch (props.type) {
-    case 'bread-bottom':
+
+  switch (type) {
+    case ingredientTypes.breadBottom:
       ingredient = <div className={classes.BreadBottom}></div>;
       break;
-    case 'bread-top':
+    case ingredientTypes.breadTop:
       ingredient = (
         <div className={classes.BreadTop}>
           <div className={classes.Seeds1}></div>
@@ -17,26 +27,27 @@ const ingredient = (props) => {
         </div>
       );
       break;
-    case 'ham':
+    case ingredientTypes.ham:
       ingredient = <div className={classes.Ham}></div>;
       break;
-    case 'cheese':
+    case ingredientTypes.cheese:
       ingredient = <div className={classes.Cheese}></div>;
       break;
-    case 'salad':
-      ingredient = <div className={classes.Salad}></div>;
-      break;
-    case 'bacon':
+    case ingredientTypes.bacon:
       ingredient = <div className={classes.Bacon}></div>;
+      break;
+    case ingredientTypes.salad:
+      ingredient = <div className={classes.Salad}></div>;
       break;
     default:
       ingredient = null;
   }
+
   return ingredient;
 };
 
-ingredient.propTypes = {
-  type: PropTypes.string.isRequired
+Ingredient.propTypes = {
+  type: PropTypes.string.isRequired,
 };
 
-export default ingredient;
+export default Ingredient;

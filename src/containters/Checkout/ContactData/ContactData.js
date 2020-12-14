@@ -94,7 +94,7 @@ class ContactData extends Component {
         ))}
         <Button
           buttonType="Success"
-          clicked={this.orderHandler}
+          onClick={this.orderHandler}
           disabled={!this.state.isValidForm}>
           ORDER
         </Button>

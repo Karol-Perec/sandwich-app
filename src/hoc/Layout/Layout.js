@@ -1,36 +1,29 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-import classes from './Layout.module.css';
-import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import classes from './Layout.module.css';
 
-class Layout extends Component {
-  state = {
-    showSideDrawer: false
+const Layout = ({ children }) => {
+  const [showSideDrawer, setShowSideDrawer] = useState(false);
+
+  const handleSideDrawerClose = () => {
+    setShowSideDrawer(false);
   };
 
-  sideDrawerClosedHandler = () => {
-    this.setState({ showSideDrawer: false });
+  const handleSideDrawerOpen = () => {
+    setShowSideDrawer((prevState) => !prevState);
   };
 
-  sideDrawerToggleHandler = () => {
-    this.setState((prevState) => {
-      return { showSideDrawer: !prevState.showSideDrawer };
-    });
-  };
-
-  render() {
-    return (
-      <>
-        <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
-        <SideDrawer
-          open={this.state.showSideDrawer}
-          closed={this.sideDrawerClosedHandler}
-        />
-        <main className={classes.Content}>{this.props.children}</main>
-      </>
-    );
-  }
-}
-
+  return (
+    <>
+      <Toolbar onDrawerToggleClick={handleSideDrawerOpen} />
+      <SideDrawer
+        onBackdropClick={handleSideDrawerClose}
+        show={showSideDrawer}
+      />
+      <main className={classes.Content}>{children}</main>
+    </>
+  );
+};
 export default Layout;
