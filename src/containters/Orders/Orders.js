@@ -3,6 +3,8 @@ import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
+import classes from './Orders.module.css'
+
 class Orders extends Component {
   state = {
     orders: [],
@@ -26,7 +28,7 @@ class Orders extends Component {
 
   render() {
     return (
-      <div>
+      <div className={classes.Orders}>
         {this.state.orders.map((order) => (
           <Order
             key={order.id}

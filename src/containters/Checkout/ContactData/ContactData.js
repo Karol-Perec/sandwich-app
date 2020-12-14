@@ -13,7 +13,7 @@ class ContactData extends Component {
   state = {
     orderForm: orderFormConfig,
     isValidForm: false,
-    loading: false
+    loading: false,
   };
 
   orderHandler = (event) => {
@@ -27,7 +27,7 @@ class ContactData extends Component {
     const order = {
       ingredients: this.props.ings,
       price: this.props.price,
-      orderData: formData
+      orderData: formData,
     };
     axios
       .post('/orders.json', order)
@@ -93,7 +93,7 @@ class ContactData extends Component {
           />
         ))}
         <Button
-          buttonType="Success"
+          buttonType='Success'
           onClick={this.orderHandler}
           disabled={!this.state.isValidForm}>
           ORDER
@@ -116,7 +116,7 @@ class ContactData extends Component {
 const mapStateToProps = (state) => {
   return {
     ings: state.ingredients,
-    price: state.totalPrice
+    price: state.totalPrice,
   };
 };
 

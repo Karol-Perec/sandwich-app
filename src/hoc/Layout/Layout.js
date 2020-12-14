@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Footer from '../../components/Navigation/Footer/Footer';
 
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
@@ -23,6 +24,7 @@ const Layout = ({ children }) => {
         show={showSideDrawer}
       />
       <main className={classes.Content}>{children}</main>
+      <Footer/>
     </>
   );
 };

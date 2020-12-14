@@ -2,13 +2,14 @@
   width: 100%;
   margin: auto;
   height: 250px;
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow-x: hidden;
   text-align: center;
   font-weight: bold;
   font-size: 1.2rem;
 }
 
-@media (max-width: 500px) and (min-height: 400px) {
+@media (max-width: 499px) and (min-height: 400px) {
   .Sandwich {
     width: 350px;
     height: 300px;
@@ -24,7 +25,7 @@
 
 @media (min-width: 1000px) and (min-height: 700px) {
   .Sandwich {
-    width: 700px;
-    height: 600px;
+    width: 570px;
+    height: 500px;
   }
 }

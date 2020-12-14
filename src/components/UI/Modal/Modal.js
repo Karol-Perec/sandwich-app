@@ -3,9 +3,9 @@ import React from 'react';
 import classes from './Modal.module.css';
 import Backdrop from '../Backdrop/Backdrop';
 
-const Modal = ({ show, modalClosed, children }) => (
+const Modal = ({ show, onBackdropClick, children }) => (
   <>
-    <Backdrop show={show} onClick={modalClosed} />
+    <Backdrop show={show} onClick={onBackdropClick} />
     <div
       className={classes.Modal}
       style={{

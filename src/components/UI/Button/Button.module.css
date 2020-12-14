@@ -8,6 +8,7 @@
   padding: 10px;
   margin: 10px;
   font-weight: bold;
+  border-radius: 10px;
 }
 
 .Button:disabled {
@@ -16,9 +17,11 @@
 }
 
 .Success {
-  color: #5c9210;
+  background-color: #80dbca;
+  color: white;
 }
 
 .Danger {
-  color: #944317;
+  background-color: #f38181;
+  color: white;
 }

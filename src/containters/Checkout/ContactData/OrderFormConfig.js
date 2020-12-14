@@ -1,68 +1,70 @@
-export default {
+const settings = {
   name: {
     elementType: 'input',
     elementConfig: {
       type: 'text',
-      placeholder: 'Your name'
+      placeholder: 'Your name',
     },
     value: '',
     validation: {
-      required: true
+      required: true,
     },
     valid: false,
-    touched: false
+    touched: false,
   },
   street: {
     elementType: 'input',
     elementConfig: {
       type: 'text',
-      placeholder: 'Street'
+      placeholder: 'Street',
     },
     value: '',
     validation: {
-      required: true
+      required: true,
     },
     valid: false,
-    touched: false
+    touched: false,
   },
   zipCode: {
     elementType: 'input',
     elementConfig: {
       type: 'text',
-      placeholder: 'ZIP Code'
+      placeholder: 'ZIP Code',
     },
     value: '',
     validation: {
       required: true,
       minLength: 5,
-      maxLength: 5
+      maxLength: 6,
     },
     valid: false,
-    touched: false
+    touched: false,
   },
   email: {
     elementType: 'input',
     elementConfig: {
       type: 'email',
-      placeholder: 'E-mail'
+      placeholder: 'E-mail',
     },
     value: '',
     validation: {
-      required: true
+      required: true,
     },
     valid: false,
-    touched: false
+    touched: false,
   },
   deliveryMethod: {
     elementType: 'select',
     elementConfig: {
       options: [
         { value: 'fastest', displayValue: 'Fastest' },
-        { value: 'cheapest', displayValue: 'Cheapest' }
-      ]
+        { value: 'cheapest', displayValue: 'Cheapest' },
+      ],
     },
     validation: {},
     value: 'fastest',
-    valid: true
-  }
+    valid: true,
+  },
 };
+
+export default settings;

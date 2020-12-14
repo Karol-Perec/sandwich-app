@@ -6,7 +6,7 @@
 }
 
 .NavigationItem a {
-  color: #8f5c2c;
+  color: #f38181;
   text-decoration: none;
   width: 100%;
   box-sizing: border-box;
@@ -16,8 +16,8 @@
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
-  background-color: white;
-  color: #40a4c8;
+  color: #f38181;
+  font-weight: bold;
 }
 
 @media (min-width: 500px) {
@@ -39,8 +39,9 @@
   .NavigationItem a:hover,
   .NavigationItem a:active,
   .NavigationItem a.active {
-    background-color: #8f5c2c;
-    border-bottom: 4px solid #40a4c8;
-    color: white;
+    background-color: #fce38a;
+    border-bottom: 4px solid #eaffd0;
+    color: #f38181;
+    font-weight: lighter;
   }
 }

@@ -59,7 +59,7 @@ class SandwichBuilder extends Component {
           <Sandwich ingredients={this.props.ings} />
           <BuildControls
             ingredientAdded={this.props.onIngredientAdded}
-            ingredientRemoved={this.props.onIngredientAdded}
+            ingredientRemoved={this.props.onIngredientRemoved}
             disabled={disabledInfo}
             price={this.props.price}
             purchaseable={this.updatePurchaseState()}
@@ -83,7 +83,7 @@ class SandwichBuilder extends Component {
 
     return (
       <>
-        <Modal show={this.state.purchasing} modalClosed={this.purchaseCancel}>
+        <Modal show={this.state.purchasing} onBackdropClick={this.purchaseCancel}>
           {orderSummary}
         </Modal>
         {sandwich}

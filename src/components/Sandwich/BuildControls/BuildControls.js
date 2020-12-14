@@ -31,14 +31,14 @@ const BuildControls = ({
   return (
     <div className={classes.BuildControls}>
       <p>
-        Current Price: <strong>{price.toFixed(2)}</strong>
+        Current Price: <strong>USD {price.toFixed(2)}</strong>
       </p>
       {buildControls}
       <button
         className={classes.OrderButton}
         disabled={!purchaseable}
         onClick={ordered}>
-        ORDER NOW
+        ORDER
       </button>
     </div>
   );
