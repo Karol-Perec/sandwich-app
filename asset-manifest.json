@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/sandwich-app/static/css/main.623dc2a4.chunk.css",
-    "main.js": "/sandwich-app/static/js/main.4d3162ab.chunk.js",
-    "main.js.map": "/sandwich-app/static/js/main.4d3162ab.chunk.js.map",
+    "main.js": "/sandwich-app/static/js/main.b62c8bd8.chunk.js",
+    "main.js.map": "/sandwich-app/static/js/main.b62c8bd8.chunk.js.map",
     "runtime-main.js": "/sandwich-app/static/js/runtime-main.102aae4f.js",
     "runtime-main.js.map": "/sandwich-app/static/js/runtime-main.102aae4f.js.map",
     "static/js/2.c5aa3271.chunk.js": "/sandwich-app/static/js/2.c5aa3271.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.102aae4f.js",
     "static/js/2.c5aa3271.chunk.js",
     "static/css/main.623dc2a4.chunk.css",
-    "static/js/main.4d3162ab.chunk.js"
+    "static/js/main.b62c8bd8.chunk.js"
   ]
 }
