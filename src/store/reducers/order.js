@@ -11,7 +11,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.PURCHASE_INIT:
       return {
         ...state,
-        purchased: false
+        purchased: false,
       };
     case actionTypes.PURCHASE_SANDWICH_START:
       return {
@@ -27,9 +27,26 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         orders: state.orders.concat(newOrder),
-        purchased: true
+        purchased: true,
       };
     case actionTypes.PURCHASE_SANDWICH_FAIL:
+      return {
+        ...state,
+        loading: false,
+      };
+
+    case actionTypes.FETCH_ORDERS_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case actionTypes.FETCH_ORDERS_SUCCESS:
+      return {
+        ...state,
+        orders: action.orders,
+        loading: false,     
+      };
+    case actionTypes.FETCH_ORDERS_FAIL:
       return {
         ...state,
         loading: false,

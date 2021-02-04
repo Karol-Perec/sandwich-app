@@ -1,42 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
-import classes from './Orders.module.css'
+import * as actions from '../../store/actions/index';
+import classes from './Orders.module.css';
 
 const Orders = () => {
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const orders = useSelector((state) => state.order.orders);
+  const loading = useSelector((state) => state.order.loading);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get('/orders.json')
-      .then((res) => {
-        const fetchedOrders = [];
-        for (let key in res.data) {
-          fetchedOrders.push({ ...res.data[key], id: key });
-        }
-        setLoading(false);
-        setOrders(fetchedOrders);
-      })
-      .catch((err) => setLoading(false));
-  }, []);
+    dispatch(actions.fetchOrders());
+  }, [dispatch]);
 
-  return loading ? (
-    <Spinner />
-  ) : (
-    <div className={classes.Orders}>
-      {orders.map((order) => (
-        <Order
-          key={order.id}
-          ingredients={order.ingredients}
-          price={+order.price}
-        />
-      ))}
-    </div>
-  );
+  let ordersList = <Spinner />;
+  if (!loading) {
+    ordersList = (
+      <div className={classes.Orders}>
+        {orders.map((order) => (
+          <Order
+            key={order.id}
+            ingredients={order.ingredients}
+            price={+order.price}
+          />
+        ))}
+      </div>
+    );
+  }
+  return ordersList;
 };
 
 export default withErrorHandler(Orders, axios);
