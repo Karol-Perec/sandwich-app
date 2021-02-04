@@ -1,6 +1,7 @@
 .Footer {
   height: 42px;
   width: 100%;
+  margin-bottom: 0;
   background-color: #f38181;
   display: flex;
   justify-content: flex-end;

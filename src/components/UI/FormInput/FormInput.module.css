@@ -4,12 +4,6 @@
   box-sizing: border-box;
 }
 
-.Label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 8px;
-}
-
 .InputElement {
   display: block;
   width: 100%;

@@ -1,114 +1,98 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import Sandwich from '../../components/Sandwich/Sandwich';
+import * as actions from '../../store/actions/index';
+import axios from '../../axios-orders';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+
 import BuildControls from '../../components/Sandwich/BuildControls/BuildControls';
+import Sandwich from '../../components/Sandwich/Sandwich';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Sandwich/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import axios from '../../axios-orders';
-import * as actionTypes from '../../store/actions';
 
-class SandwichBuilder extends Component {
-  state = {
-    purchasing: false,
-    loading: false,
-    error: false
-  };
+const SandwichBuilder = ({ history }) => {
+  const [purchasing, setPurchasing] = useState(false);
 
-  updatePurchaseState() {
-    const ingredientsSum = Object.values(this.props.ings).reduce(
+  const ingredients = useSelector((state) => state.sandwichBuilder.ingredients);
+  const totalPrice = useSelector((state) => state.sandwichBuilder.totalPrice);
+  const error = useSelector((state) => state.sandwichBuilder.error);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(actions.initIngredients())
+  }, [dispatch])
+
+  const isPurchaseable = () => {
+    const ingredientsSum = Object.values(ingredients).reduce(
       (sum, el) => sum + el,
       0
     );
     return ingredientsSum > 0;
+  };
+
+  const addIngredientHandler = (name) => {
+    dispatch(actions.addIngredient(name));
+  };
+
+  const removeIngredientHandler = (name) => {
+    dispatch(actions.removeIngredient(name));
+  };
+
+  const purchaseHandler = () => {
+    setPurchasing(true);
+  };
+
+  const purchaseCancelHandler = () => {
+    setPurchasing(false);
+  };
+
+  const purchaseContinueHandler = () => {
+    history.push('/checkout');
+    dispatch(actions.purchaseInit())
+  };
+
+  const disabledInfo = {
+    ...ingredients,
+  };
+  for (let key in disabledInfo) {
+    disabledInfo[key] = disabledInfo[key] <= 0;
   }
 
-  purchase = () => {
-    this.setState({ purchasing: true });
-  };
-
-  purchaseCancel = () => {
-    this.setState({ purchasing: false });
-  };
-
-  purchaseContinue = () => {
-    this.props.history.push('/checkout');
-  };
-
-  render() {
-    const disabledInfo = {
-      ...this.props.ings
-    };
-
-    for (let key in disabledInfo) {
-      disabledInfo[key] = disabledInfo[key] <= 0;
-    }
-
-    let orderSummary = null;
-    let sandwich = this.state.error ? (
-      <p>Ingredients can't be loaded!</p>
-    ) : (
-      <Spinner />
-    );
-
-    if (this.props.ings) {
-      sandwich = (
-        <>
-          <Sandwich ingredients={this.props.ings} />
-          <BuildControls
-            ingredientAdded={this.props.onIngredientAdded}
-            ingredientRemoved={this.props.onIngredientRemoved}
-            disabled={disabledInfo}
-            price={this.props.price}
-            purchaseable={this.updatePurchaseState()}
-            ordered={this.purchase}
-          />
-        </>
-      );
-      orderSummary = (
-        <OrderSummary
-          ingredients={this.props.ings}
-          purchaseCancelled={this.purchaseCancel}
-          purchaseContinued={this.purchaseContinue}
-          price={this.props.price}
-        />
-      );
-    }
-
-    if (this.state.loading) {
-      orderSummary = <Spinner />;
-    }
-
-    return (
+  let orderSummary = null;
+  let sandwich = error ? <p>Ingredients can't be loaded</p> : <Spinner />;
+  if (ingredients) {
+    sandwich = (
       <>
-        <Modal show={this.state.purchasing} onBackdropClick={this.purchaseCancel}>
-          {orderSummary}
-        </Modal>
-        {sandwich}
+        <Sandwich ingredients={ingredients} />{' '}
+        <BuildControls
+          ingredientAdded={addIngredientHandler}
+          ingredientRemoved={removeIngredientHandler}
+          disabled={disabledInfo}
+          price={totalPrice}
+          purchaseable={isPurchaseable()}
+          ordered={purchaseHandler}
+        />
       </>
     );
+    orderSummary = (
+      <OrderSummary
+        ingredients={ingredients}
+        purchaseCancelled={purchaseCancelHandler}
+        purchaseContinued={purchaseContinueHandler}
+        price={totalPrice}
+      />
+    );
   }
-}
 
-const mapStateToProps = (state) => {
-  return {
-    ings: state.ingredients,
-    price: state.totalPrice
-  };
+  return (
+    <>
+      <Modal show={purchasing} onBackdropClick={purchaseCancelHandler}>
+        {orderSummary}
+      </Modal>
+      {sandwich}
+    </>
+  );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onIngredientAdded: (ingName) =>
-      dispatch({ type: actionTypes.ADD_INGREDIENT, ingredientName: ingName }),
-    onIngredientRemoved: (ingName) =>
-      dispatch({ type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName })
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withErrorHandler(SandwichBuilder, axios));
+export default withErrorHandler(SandwichBuilder, axios);

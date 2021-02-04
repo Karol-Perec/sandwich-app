@@ -7,19 +7,19 @@ import classes from './CheckoutSummary.module.css';
 
 const CheckoutSummary = ({
   ingredients,
-  checkoutCancelled,
-  checkoutContinued,
+  onCheckoutCancelled,
+  onCheckoutContinued,
 }) => {
   return (
     <div className={classes.CheckoutSummary}>
-      <h1>There's your sandwich!</h1>
+      <h1>We hope it testes well!</h1>
       <div style={{ width: '100%', margin: 'auto' }}>
         <Sandwich ingredients={ingredients} />
       </div>
-      <Button buttonType='Danger' onClick={checkoutCancelled}>
+      <Button buttonType='Danger' onClick={onCheckoutCancelled}>
         CANCEL
       </Button>
-      <Button buttonType='Success' onClick={checkoutContinued}>
+      <Button buttonType='Success' onClick={onCheckoutContinued}>
         CONTINUE
       </Button>
     </div>
