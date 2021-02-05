@@ -26,13 +26,12 @@ export const purchaseSandwichFail = (error) => {
   };
 };
 
-export const purchaseSandwich = (orderData) => {
+export const purchaseSandwich = (orderData, token) => {
   return (dispatch) => {
     dispatch(purchaseSandwichStart());
     axios
-      .post('/orders.json', orderData)
+      .post('/orders.json?auth=' + token, orderData)
       .then((response) => {
-        console.log(response);
         dispatch(purchaseSandwichSuccess(response.data.name, orderData));
       })
       .catch((error) => {
@@ -61,11 +60,11 @@ export const fetchOrdersStart = () => {
   };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = (token) => {
   return (dispatch) => {
     dispatch(fetchOrdersStart());
     axios
-      .get('/orders.json')
+      .get('/orders.json?auth=' + token)
       .then((res) => {
         const fetchedOrders = [];
         for (let key in res.data) {

@@ -15,6 +15,7 @@ const ContactData = ({ history }) => {
   const ingredients = useSelector((state) => state.sandwichBuilder.ingredients);
   const totalPrice = useSelector((state) => state.sandwichBuilder.totalPrice);
   const loading = useSelector((state) => state.order.loading);
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const {
     handleSubmit,
@@ -29,7 +30,7 @@ const ContactData = ({ history }) => {
       price: totalPrice.toFixed(2),
       orderData: data,
     };
-    dispatch(actions.purchaseSandwich(order));
+    dispatch(actions.purchaseSandwich(order, token));
   };
 
   let form = loading ? <Spinner/> : (

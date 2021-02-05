@@ -12,11 +12,12 @@ import classes from './Orders.module.css';
 const Orders = () => {
   const orders = useSelector((state) => state.order.orders);
   const loading = useSelector((state) => state.order.loading);
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actions.fetchOrders());
-  }, [dispatch]);
+    dispatch(actions.fetchOrders(token));
+  }, [dispatch, token]);
 
   let ordersList = <Spinner />;
   if (!loading) {

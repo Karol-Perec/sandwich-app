@@ -86,15 +86,27 @@ const FormInput = ({ invalid, elementType, inputRef }) => {
         </select>
       );
       break;
+    case 'password':
+      inputElement = (
+        <input
+          type='password'
+          name='password'
+          placeholder='Password'
+          ref={inputRef({
+            required: true,
+            maxLength: 20,
+            minLength: 6,
+            pattern: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/,
+          })}
+          className={inputClasses.join(' ')}
+        />
+      );
+      break;
     default:
       <input type='text' name='default' ref={inputRef()} />;
   }
 
-  return (
-    <div className={classes.Input}>
-      {inputElement}
-    </div>
-  );
+  return <div className={classes.Input}>{inputElement}</div>;
 };
 
 export default FormInput;

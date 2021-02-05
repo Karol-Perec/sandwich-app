@@ -1,8 +1,9 @@
 .Spinner {
-  display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .Spinner div {
   box-sizing: border-box;
@@ -16,6 +17,7 @@
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: #f38181 transparent transparent transparent;
 }
+
 .Spinner div:nth-child(1) {
   animation-delay: -0.45s;
 }
@@ -25,7 +27,8 @@
 .Spinner div:nth-child(3) {
   animation-delay: -0.15s;
 }
-@keyframes Spinner {
+
+@keyframes lds-ring {
   0% {
     transform: rotate(0deg);
   }
@@ -33,4 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
