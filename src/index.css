@@ -5,13 +5,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   margin: 0;
   overflow-y: scroll;
 }
 
 main {
-  flex: 1;
+  min-height: calc(100vh - 114px);
 }
 
 footer {

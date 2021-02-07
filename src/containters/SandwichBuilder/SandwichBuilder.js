@@ -17,11 +17,13 @@ const SandwichBuilder = ({ history }) => {
   const ingredients = useSelector((state) => state.sandwichBuilder.ingredients);
   const totalPrice = useSelector((state) => state.sandwichBuilder.totalPrice);
   const error = useSelector((state) => state.sandwichBuilder.error);
+  const isAuthenticated = useSelector((state) => state.auth.token !== null);
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actions.initIngredients())
-  }, [dispatch])
+    dispatch(actions.initIngredients());
+  }, [dispatch]);
 
   const isPurchaseable = () => {
     const ingredientsSum = Object.values(ingredients).reduce(
@@ -40,7 +42,11 @@ const SandwichBuilder = ({ history }) => {
   };
 
   const purchaseHandler = () => {
-    setPurchasing(true);
+    if (isAuthenticated) {
+      setPurchasing(true);
+    } else {
+      history.push('/auth')
+    }
   };
 
   const purchaseCancelHandler = () => {
@@ -49,7 +55,7 @@ const SandwichBuilder = ({ history }) => {
 
   const purchaseContinueHandler = () => {
     history.push('/checkout');
-    dispatch(actions.purchaseInit())
+    dispatch(actions.purchaseInit());
   };
 
   const disabledInfo = {
@@ -72,6 +78,7 @@ const SandwichBuilder = ({ history }) => {
           price={totalPrice}
           purchaseable={isPurchaseable()}
           ordered={purchaseHandler}
+          isAuthenticated={isAuthenticated}
         />
       </>
     );

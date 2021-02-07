@@ -16,6 +16,7 @@ const ContactData = ({ history }) => {
   const totalPrice = useSelector((state) => state.sandwichBuilder.totalPrice);
   const loading = useSelector((state) => state.order.loading);
   const token = useSelector((state) => state.auth.token);
+  const userId = useSelector((state) => state.auth.userId);
   const dispatch = useDispatch();
   const {
     handleSubmit,
@@ -29,6 +30,7 @@ const ContactData = ({ history }) => {
       ingredients: ingredients,
       price: totalPrice.toFixed(2),
       orderData: data,
+      userId: userId,
     };
     dispatch(actions.purchaseSandwich(order, token));
   };

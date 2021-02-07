@@ -17,7 +17,9 @@ const BuildControls = ({
   price,
   purchaseable,
   ordered,
+  isAuthenticated
 }) => {
+
   const buildControls = controls.map((control) => (
     <BuildControl
       key={control.label}
@@ -38,7 +40,7 @@ const BuildControls = ({
         className={classes.OrderButton}
         disabled={!purchaseable}
         onClick={ordered}>
-        ORDER
+        {isAuthenticated ? 'ORDER NOW' : 'LOG IN TO ORDER'}
       </button>
     </div>
   );

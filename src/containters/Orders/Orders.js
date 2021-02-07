@@ -13,11 +13,12 @@ const Orders = () => {
   const orders = useSelector((state) => state.order.orders);
   const loading = useSelector((state) => state.order.loading);
   const token = useSelector((state) => state.auth.token);
+  const userId = useSelector((state) => state.auth.userId);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actions.fetchOrders(token));
-  }, [dispatch, token]);
+    dispatch(actions.fetchOrders(token, userId));
+  }, [dispatch, token, userId]);
 
   let ordersList = <Spinner />;
   if (!loading) {
